@@ -20,9 +20,9 @@ from csv import DictReader, DictWriter
 def get_info():
     info = []
     first_name = input("Введите имя: ")
-    info.append(first_name)
     last_name = input("Введите фамилию: ")
     info.append(last_name)
+    info.append(first_name)
     flag = False
     while not flag:
         try:
@@ -117,6 +117,21 @@ def change_info():
         f_n_writer.writerows(res)
 
 
+def delete_info():
+    with open('phone.csv', 'r', encoding='utf-8') as f_n:
+        f_n_reader = DictReader(f_n)
+        res = list(f_n_reader)
+        print(res)
+        delete_obj = input('Введите Фамилию, Имя или Номер удаляемого объекта: ')
+        for el in res:
+            if el['Фамилия'] == delete_obj or el['Имя'] == delete_obj or el['Номер'] == delete_obj:
+                res.remove(el)
+    with open('phone.csv', 'w', encoding='utf-8', newline="") as f_n:
+        f_n_writer = DictWriter(f_n, fieldnames=['Фамилия', 'Имя', 'Номер'])
+        f_n_writer.writeheader()
+        f_n_writer.writerows(res)
+
+
 def main():
     while True:
         command = input('Введите команду: ')
@@ -139,6 +154,12 @@ def main():
                 break
             else:
                 change_info()
+        elif command == 'd':
+            if not exists('phone.csv'):
+                print('Файл не создан')
+                break
+            else:
+                delete_info()
 
 
 main()
