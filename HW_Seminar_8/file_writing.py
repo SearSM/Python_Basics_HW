@@ -95,23 +95,16 @@ def change_info():
             for el in res:
                 if el['Фамилия'] == old_info:
                     el['Фамилия'] = new_info
-                else:
-                    print('Данные не совпадают')
-                break
         elif info_change == 'Имя':
             for el in res:
                 if el['Имя'] == old_info:
                     el['Имя'] = new_info
-                else:
-                    print('Данные не совпадают')
-                break
         elif info_change == 'Номер':
             for el in res:
                 if el['Номер'] == old_info:
                     el['Номер'] = new_info
-                else:
-                    print('Данные не совпадают')
-                break
+        else:
+            print('Данные не совпадают')
         f_n_writer = DictWriter(f_n, fieldnames=['Фамилия', 'Имя', 'Номер'])
         f_n_writer.writeheader()
         f_n_writer.writerows(res)
